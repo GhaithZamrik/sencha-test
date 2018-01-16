@@ -16,20 +16,5 @@ Ext.define('MyApp.model.Device', {
     }, {
     name: 'environmentName',
     type: 'string'
-    }],
-
-  //   proxy: {
-  //     headers: { Authorization: token },
-  //     type: 'rest',
-  //     noCache: false,
-  //     pageParam: '',
-  //     startParam: '',
-  //     limitParam: '',
-  //     url : 'DATAurl',
-  //     reader: {
-  //         type: 'json',
-  //         rootProperty: 'data.devices',
-  //         method: 'GET'
-  //     }
-  // },
+    }]
 });

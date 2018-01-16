@@ -1,43 +1,52 @@
 Ext.define('MyApp.view.main.Main', {
-    extend: 'Ext.tab.Panel',
-
-    controller: 'main',
-
+    extend: 'Ext.Container',
     requires: [
         'Ext.Button',
-        'Ext.field.Text'
+        'Ext.list.Tree',
+        'Ext.navigation.View'
     ],
 
-    viewModel: {
-        data: {
-            userName: ''
+    controller: 'main',
+    platformConfig: {
+        phone: {
+            controller: 'phone-main'
         }
     },
 
-    items: [{
-        title: 'Home',
-        html: '<h1 class="main-banner">Hello World!<h1>',
-        items: [{
-            xtype: 'textfield',
-            label: 'User name',
-            bind: '{userName}',
+    layout: 'hbox',
 
-            listeners: {
-                action: 'onGo'
-            }
-        }, {
-            xtype: 'button',
-            handler: 'onGo',
-            bind: {
-                disabled: '{!userName}',
-                text: '{userName ? "Save: " + userName : "Save"}'
-            }
-        }]
-    }, {
-        title: 'Charts',
-        xtype: 'charts'
-    }, {
-        title: 'Devices',
-        xtype: 'devices'
-    }]
+    items: [
+        {
+            xtype: 'maintoolbar',
+            docked: 'top',
+            userCls: 'main-toolbar shadow'
+        },
+        {
+            xtype: 'container',
+            userCls: 'main-nav-container',
+            reference: 'navigation',
+            scrollable: true,
+            items: [
+                {
+                    xtype: 'treelist',
+                    reference: 'navigationTree',
+                    ui: 'navigation',
+                    store: 'NavigationTree',
+                    expanderFirst: false,
+                    expanderOnly: false,
+                    listeners: {
+                        itemclick: 'onNavigationItemClick',
+                        selectionchange: 'onNavigationTreeSelectionChange'
+                    }
+                }
+            ]
+        },
+        {
+            xtype: 'navigationview',
+            flex: 1,
+            reference: 'mainCard',
+            userCls: 'main-container',
+            navigationBar: false
+        }
+    ]
 });
